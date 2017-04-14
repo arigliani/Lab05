@@ -9,7 +9,7 @@ public class TestModel {
 		//System.out.println(" fattoriale abc="+i);
 		// TODO Auto-generated method stub
 		
-		System.out.println(m.commuta("abcaa"));
+		System.out.println(m.calcola("abc"));
 
 	}
 

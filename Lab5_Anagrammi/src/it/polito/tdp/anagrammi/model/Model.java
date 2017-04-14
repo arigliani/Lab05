@@ -6,33 +6,45 @@ import java.util.*;
 public class Model {
 	private int i=1;
 	//private int numeroDoppie=0;
-	private List<String> mappaLettere= new LinkedList<String>();
+	
 	//private LinkedList<String> listaLettereDoppie= new LinkedList<String>();
+	
+	
+	public String calcola(String parola){
+		 List<String> mappaLettere= new LinkedList<String>();
+		Set<String> elenco=commuta(parola, mappaLettere);
+		String temp="";
+		for(String s: elenco){
+			temp+=s+"\n";
+		}
+		return temp.trim();
+	}
+	
 	 
-	public Set<String> commuta(String parola){
+	private Set<String> commuta(String parola, List<String> mappaLettere){
 	
-		creaMappa(parola);
+		mappaLettere.addAll(creaMappa(parola));
 		
-		Set<String> soluzione= this.risolvi();
+		Set<String> soluzione= this.risolvi(mappaLettere);
 	
 		
-		System.out.println("\n"+"proooova"+ mappaLettere.toString()+"\n");
+	//	System.out.println("\n"+"proooova"+ mappaLettere.toString()+"\n");
 		return soluzione;
 		
 	}
 	
 	
 
-	private HashSet<String> risolvi() {
+	private HashSet<String> risolvi(List<String> mappaLettere) {
 		List<String> parziale = new ArrayList<String>();
 		HashSet<String> elencoParole= new HashSet<String>();
-		scegli (parziale,0,0, elencoParole);
+		scegli (parziale,0,0, elencoParole,mappaLettere );
 		return elencoParole;
 	}
 
 
 
-	private void scegli(List<String> parziale, int livello, int posizione, Set<String> elencoParole) {
+	private void scegli(List<String> parziale, int livello, int posizione, Set<String> elencoParole, List<String> mappaLettere) {
 		
 		if(parziale.size()==mappaLettere.size()){
 			
@@ -40,7 +52,7 @@ public class Model {
 			//if(!elencoParole.contains(s))
 			       elencoParole.add(s);
 			
-			System.out.println(s+" "+i++);
+		//	System.out.println(s+" "+i++);
 			
 		}
 		
@@ -50,7 +62,7 @@ public class Model {
 				parziale.add(temp);
 				posizione++;
 				
-				scegli(parziale,livello+1, posizione,elencoParole );
+				scegli(parziale,livello+1, posizione,elencoParole, mappaLettere );
 				
 				parziale.remove(temp);
 				
@@ -120,23 +132,16 @@ private int numeroVoltaPresente(String lettera, List<String> mappaLettere) {
 
 
 
-	private void creaMappa(String parola) {
-		
+	private List<String> creaMappa(String parola) {
+		List<String> mappaLettere= new LinkedList<String>();
 		
 		char[] caratteri=parola.toCharArray();
 		
 		for(int i=0; i<parola.length();i++){
-			//if(!mappaLettere.contains(""+caratteri[i]))
 			    mappaLettere.add(""+caratteri[i]);
-		/*	else{
-				if(listaLettereDoppie.size()<10){
-				      listaLettereDoppie.add(""+numeroDoppie+" "+caratteri[i]);
-				       mappaLettere.add(""+numeroDoppie);
-				      numeroDoppie++;
-				      }
-				
-			}*/
+	
 		}
+		return mappaLettere;
 		
 		
 	}
