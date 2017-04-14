@@ -5,16 +5,18 @@ import java.util.*;
 
 public class Model {
 	private int i=1;
-	private Set<String> mappaLettere= new HashSet<String>();
+	//private int numeroDoppie=0;
+	private List<String> mappaLettere= new LinkedList<String>();
+	//private LinkedList<String> listaLettereDoppie= new LinkedList<String>();
 	 
 	public Set<String> commuta(String parola){
 	
 		creaMappa(parola);
 		
 		Set<String> soluzione= this.risolvi();
-	//	itera(mappaLettere, 0, Set<Pezzo> parziale );// metodo per riempire la lista con iterazione
-	//	itera(vettorePosizione, prova, arrayCaratteri,0);
+	
 		
+		System.out.println("\n"+"proooova"+ mappaLettere.toString()+"\n");
 		return soluzione;
 		
 	}
@@ -22,7 +24,7 @@ public class Model {
 	
 
 	private HashSet<String> risolvi() {
-		Set<String> parziale = new HashSet<String>();
+		List<String> parziale = new ArrayList<String>();
 		HashSet<String> elencoParole= new HashSet<String>();
 		scegli (parziale,0,0, elencoParole);
 		return elencoParole;
@@ -30,23 +32,20 @@ public class Model {
 
 
 
-	private void scegli(Set<String> parziale, int livello, int posizione, Set<String> elencoParole) {
+	private void scegli(List<String> parziale, int livello, int posizione, Set<String> elencoParole) {
 		
 		if(parziale.size()==mappaLettere.size()){
-			//trovata una commutazione
-			// devo salvarla in elencoParole
 			
-			//trasformo parziale in stringa
-			// e controllo se gia esiste
 			String s= trasformaStringa(parziale);
-			elencoParole.add(s);
+			//if(!elencoParole.contains(s))
+			       elencoParole.add(s);
 			
 			System.out.println(s+" "+i++);
 			
 		}
 		
 		for(String lettera: mappaLettere){
-			if ((controllaLettera(lettera, parziale)==false)){
+			if ((controllaLettera(lettera, parziale, mappaLettere)==false)){
 				String temp=""+posizione+" "+lettera;
 				parziale.add(temp);
 				posizione++;
@@ -66,17 +65,41 @@ public class Model {
 
 
 
-	private boolean controllaLettera(String lettera, Set<String> parziale) {
+
+
+	private boolean controllaLettera(String lettera, List<String> parziale, List<String> mappaLettere) {
+		int comparsa= numeroVoltaPresente(lettera, mappaLettere);
+		//System.out.println("aaaaaaaaaaaaaaa"+comparsa);
+		int count=0;
+		
 		for(String s: parziale){
 			if(s.contains(lettera))
-				return true;
+				count++;
+				
+		}
+		
+		if(count==comparsa){
+			return true;
 		}
 		return false;
 	}
 
 
 
-	private String trasformaStringa(Set<String> parziale) {
+private int numeroVoltaPresente(String lettera, List<String> mappaLettere) {
+	  int contatore=0;
+	for(String s: mappaLettere){
+		  if(s.equals(lettera))
+			  contatore++;
+	  }
+	
+	
+		return contatore;
+	}
+
+
+
+	private String trasformaStringa(List<String> parziale) {
 		LinkedList<String> lettere=new LinkedList<String>();
 	    
 		 for(String s: parziale ){
@@ -98,11 +121,21 @@ public class Model {
 
 
 	private void creaMappa(String parola) {
+		
+		
 		char[] caratteri=parola.toCharArray();
 		
 		for(int i=0; i<parola.length();i++){
-			
-			mappaLettere.add(""+caratteri[i]);
+			//if(!mappaLettere.contains(""+caratteri[i]))
+			    mappaLettere.add(""+caratteri[i]);
+		/*	else{
+				if(listaLettereDoppie.size()<10){
+				      listaLettereDoppie.add(""+numeroDoppie+" "+caratteri[i]);
+				       mappaLettere.add(""+numeroDoppie);
+				      numeroDoppie++;
+				      }
+				
+			}*/
 		}
 		
 		
@@ -110,61 +143,7 @@ public class Model {
 	
 	
 	
-	
-	/*for(int j=0; j<mappaLettere.size();j++){//parziale linkedList perchemantiene ordine inserimento
-			if(!parziale.containsKey(j)){
-			//	int rimuovi=j;
-				String temp=(""+i+" "+mappaLettere.get(j));
-				parziale.put(j,temp);
-				i++;
-				
-				scegli(parziale, livello+1, elencoParole);
-				parziale.remove(temp);
-				
-			}
-		}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	/*private int[] creaVettore(String parola) {
-		int i= parola.length();
-		int[] vett= new int[i];
-		
-		for(int j=0;j<i;j++){
-			vett[j]=j;
-		}
-		return vett;
-	}
-	
-	String verifica="";
-	private void itera(int[] vettPosizione,char[] prova, char[] arrayCaratteri,int livello ){
-		
-		
-		for(int i: vettPosizione){
-			if(!verifica.contains(""+i)){
-				prova[i]=arrayCaratteri[livello];
-				verifica+=this.verificaParola(prova, vettPosizione.length,livello, verifica);
-				itera(vettPosizione,prova,arrayCaratteri, livello+1);
-				
-				
-				
-		     }
-		}
-	}
-	
-	*/
-	
-	
+	// fa piu commutazioni di quelli possibili
 
 	
 
