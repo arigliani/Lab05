@@ -11,8 +11,15 @@ public class TestParoleDAO {
 		
 	//	System.out.println(a.toString());
 		//for(int i=0; i<90; i++)
-		if(p.isCorrect("casa")==true){
-			System.out.println("ook");
+		if(p.isCorrect("weppo")==true){
+			System.out.println("isCorrect: ook");
+		}
+		else{
+			System.out.println("buuuu");
+		} 
+		
+		if(p.trova("weppo")==true){
+			System.out.println("trova: ook");
 		}
 		else{
 			System.out.println("buuuu");

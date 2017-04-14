@@ -6,7 +6,7 @@ import it.polito.tdp.anagrammi.DAO.ParoleDAO;
 
 
 public class Model {
-	private int i=1;
+	//private int i=1;
 	private ParoleDAO p=new ParoleDAO();
 	//private int numeroDoppie=0;
 	
@@ -19,7 +19,7 @@ public class Model {
 		Set<String> elenco=commuta(parola, mappaLettere);
 		String temp="";
 		for(String s: elenco){
-			if(p.isCorrect(s.trim())==true){
+			if(p.trova(s.trim())==true){
 				temp+=s+"\n";
 			}
 			    
@@ -32,7 +32,7 @@ public class Model {
 		Set<String> elenco=commuta(parola, mappaLettere);
 		String temp="";
 		for(String s: elenco){
-			if(p.isCorrect(s.trim())==false)
+			if(p.trova(s.trim())==false)
 			    temp+=s+"\n";
 		}
 		return temp.trim();

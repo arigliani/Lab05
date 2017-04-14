@@ -129,4 +129,39 @@ public class ParoleDAO {//`dizionario`.`parola`
 		}
 	}
 	
+public boolean trova(String mid) {
+		
+		String sql = 
+				"SELECT id, nome "+
+		         "FROM dizionario.parola "+
+				"WHERE nome=?" ;
+		String jdbcURL = "jdbc:mysql://localhost/dizionario?user=root&password=root" ;
+        
+		//String result="";
+		try{
+             Connection conn = DriverManager.getConnection(jdbcURL) ;
+			
+			PreparedStatement st = conn.prepareStatement(sql) ;
+						
+			st.setString(1, mid);
+			ResultSet res = st.executeQuery() ;
+			
+			while(res.next()) {
+				String s= res.getString("nome");
+				if(s.equals(mid)){
+					return true;
+				}
+				
+			}
+			
+
+			conn.close();
+			return false;
+
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false ;
+		}
+	}
 }
