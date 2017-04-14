@@ -4,8 +4,8 @@ import java.util.*;
 
 
 public class Model {
-	private int i=0;
-	private Map<Integer, String> mappaLettere= new HashMap<Integer, String>();
+	private int i=1;
+	private Set<String> mappaLettere= new HashSet<String>();
 	 
 	public Set<String> commuta(String parola){
 	
@@ -21,16 +21,16 @@ public class Model {
 	
 	
 
-	private Set<String> risolvi() {
-		TreeMap<Integer,String> parziale = new TreeMap<Integer,String>();
-		Set<String> elencoParole= new HashSet<String>();
-		scegli (parziale,0, elencoParole);
+	private HashSet<String> risolvi() {
+		Set<String> parziale = new HashSet<String>();
+		HashSet<String> elencoParole= new HashSet<String>();
+		scegli (parziale,0,0, elencoParole);
 		return elencoParole;
 	}
 
 
 
-	private void scegli(TreeMap<Integer,String> parziale, int livello, Set<String> elencoParole) {
+	private void scegli(Set<String> parziale, int livello, int posizione, Set<String> elencoParole) {
 		
 		if(parziale.size()==mappaLettere.size()){
 			//trovata una commutazione
@@ -41,27 +41,50 @@ public class Model {
 			String s= trasformaStringa(parziale);
 			elencoParole.add(s);
 			
+			System.out.println(s+" "+i++);
+			
 		}
 		
-		for(int j=0; j<mappaLettere.size();j++){//parziale linkedList perchemantiene ordine inserimento
-			if(!parziale.containsKey(j)){
-				String temp=(""+i+" "+mappaLettere.get(j));
-				parziale.put(j,temp);
-				i++;
+		for(String lettera: mappaLettere){
+			if ((controllaLettera(lettera, parziale)==false)){
+				String temp=""+posizione+" "+lettera;
+				parziale.add(temp);
+				posizione++;
 				
-				scegli(parziale, livello+1, elencoParole);
-				parziale.remove(mappaLettere.get(j));
+				scegli(parziale,livello+1, posizione,elencoParole );
+				
+				parziale.remove(temp);
+				
 				
 			}
 		}
+		
+		
+		
 		
 	}
 
 
 
-	private String trasformaStringa(TreeMap<Integer, String> parziale) {
-		LinkedList<String> lettere=  new LinkedList<String>(parziale.values());
-	    Collections.sort(lettere);
+	private boolean controllaLettera(String lettera, Set<String> parziale) {
+		for(String s: parziale){
+			if(s.contains(lettera))
+				return true;
+		}
+		return false;
+	}
+
+
+
+	private String trasformaStringa(Set<String> parziale) {
+		LinkedList<String> lettere=new LinkedList<String>();
+	    
+		 for(String s: parziale ){
+		    	lettere.add(s);
+		    	
+		    }
+		
+		Collections.sort(lettere);
 	    String parola="";
 	    for(String s: lettere ){
 	    	String[] temp=s.split(" ");
@@ -78,12 +101,29 @@ public class Model {
 		char[] caratteri=parola.toCharArray();
 		
 		for(int i=0; i<parola.length();i++){
-			Integer j= i;
-			mappaLettere.put(j, ""+caratteri[i]);
+			
+			mappaLettere.add(""+caratteri[i]);
 		}
 		
 		
 	}
+	
+	
+	
+	
+	/*for(int j=0; j<mappaLettere.size();j++){//parziale linkedList perchemantiene ordine inserimento
+			if(!parziale.containsKey(j)){
+			//	int rimuovi=j;
+				String temp=(""+i+" "+mappaLettere.get(j));
+				parziale.put(j,temp);
+				i++;
+				
+				scegli(parziale, livello+1, elencoParole);
+				parziale.remove(temp);
+				
+			}
+		}*/
+	
 	
 	
 	
