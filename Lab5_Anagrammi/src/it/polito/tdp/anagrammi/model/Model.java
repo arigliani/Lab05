@@ -2,23 +2,42 @@ package it.polito.tdp.anagrammi.model;
 
 import java.util.*;
 
+import it.polito.tdp.anagrammi.DAO.ParoleDAO;
+
 
 public class Model {
 	private int i=1;
+	private ParoleDAO p=new ParoleDAO();
 	//private int numeroDoppie=0;
 	
 	//private LinkedList<String> listaLettereDoppie= new LinkedList<String>();
 	
 	
-	public String calcola(String parola){
+	
+	public String corrette(String parola){
 		 List<String> mappaLettere= new LinkedList<String>();
 		Set<String> elenco=commuta(parola, mappaLettere);
 		String temp="";
 		for(String s: elenco){
-			temp+=s+"\n";
+			if(p.isCorrect(s.trim())==true){
+				temp+=s+"\n";
+			}
+			    
 		}
 		return temp.trim();
 	}
+	
+	public String errate(String parola){
+		 List<String> mappaLettere= new LinkedList<String>();
+		Set<String> elenco=commuta(parola, mappaLettere);
+		String temp="";
+		for(String s: elenco){
+			if(p.isCorrect(s.trim())==false)
+			    temp+=s+"\n";
+		}
+		return temp.trim();
+	}
+	
 	
 	 
 	private Set<String> commuta(String parola, List<String> mappaLettere){

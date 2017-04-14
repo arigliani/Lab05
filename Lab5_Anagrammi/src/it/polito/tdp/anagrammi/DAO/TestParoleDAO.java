@@ -10,12 +10,23 @@ public class TestParoleDAO {
 	//	Set<String> a= p.getTuttiCorsi();
 		
 	//	System.out.println(a.toString());
-		
-		if(p.isCorrect("ewrdftgyhj")==true){
+		//for(int i=0; i<90; i++)
+		if(p.isCorrect("casa")==true){
 			System.out.println("ook");
 		}
 		else{
 			System.out.println("buuuu");
+		} 
+		
+		
+		//System.out.println(p.find(38754));
+		
+		/*boolean b= p.ricercaDicotomica("fghjk",0, 697846);
+		if(b==true){
+			System.out.println("ook");
 		}
+		else{
+			System.out.println("buuuu");
+		}*/
 }
 }

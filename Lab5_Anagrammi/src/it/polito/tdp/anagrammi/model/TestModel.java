@@ -9,7 +9,11 @@ public class TestModel {
 		//System.out.println(" fattoriale abc="+i);
 		// TODO Auto-generated method stub
 		
-		System.out.println(m.calcola("abc"));
+		System.out.println("le combinazione corrette sono: \n" +m.corrette("abc"));
+		
+		System.out.println("------");
+		
+		System.out.println("le combinazioni errate: \n"+m.errate("abc"));
 
 	}
 

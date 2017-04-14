@@ -42,11 +42,15 @@ public class AnagrammiController {
     void calcolaAnagrammi(ActionEvent event) {
     	String s="";
     	String elenco="";
+    	String sbagliate="";
     	 s=txtParola.getText();
     	txtParola.clear();
     	txtCorretti.clear();
-    	elenco=  model.calcola(s);
+    	elenco=  model.corrette(s);
+    	sbagliate= model.errate(s);
+    	
     	txtCorretti.setText(elenco);
+    	txtErrati.setText(sbagliate);
     	
     	
     	
@@ -57,6 +61,7 @@ public class AnagrammiController {
     void reset(ActionEvent event) {
     	txtParola.clear();
     	txtCorretti.clear();
+    	txtErrati.clear();
 
     }
 
